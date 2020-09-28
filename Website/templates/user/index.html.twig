@@ -1,0 +1,111 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello
+	{{user.fullName}}
+{% endblock %}
+
+{% block body %}
+
+	{# Jumbotron #}
+
+	<div class="bg-light mt-5" style="background:url(http://lorempixel.com/output/nature-q-c-1920-1080-3.jpg)">
+		<div class="container" style="margin-top:100px">
+			<div class="jumbotron bg-transparent text-center">
+				<h1 class="display-4">Bienvenue
+					{{ user.fullName }}
+				</h1>
+			</div>
+		</div>
+	</div>
+
+	{# Contenu #}
+
+	<div class="container-fluid">
+		<div
+			class="row">
+
+			{# Carte profil #}
+
+			<div class="col-2">
+				<div class="container w-100 bg-light text-center" style="margin-top:-64px">
+					<div class="row">
+						<div>
+							<img src="{{user.picture}}" alt="" class="mb-3 rounded-circle">
+							<h3>{{user.fullName}}</h3>
+							<p>{{user.email}}</p>
+							<p>{{user.phoneNumber}}</p>
+							<p>{{user.adresse}}</p>
+						</div>
+					</div>
+					{% if user is same as (app.user) %}
+						<div class=" row">
+							<div class="col">
+								<a href="{{ path('account_password') }}" class="text-info">changer mon mot de passe</a>
+							</div>
+							<div class="col text-danger">se desinscrire</div>
+						</div>
+						<div class="row text-center">
+							<div class="col">
+								<a href="{{ path('account_profile_edit') }}">Editer mon profil</a>
+							</div>
+
+						</div>
+					{% endif %}
+				</div>
+			</div>
+
+			{# reservation #}
+
+			<div class="col-8">
+				{% for booking in app.user.bookings %}
+					<div class="container" style="margin-top:100px">
+						<h1>Votre reservation de
+							{{ booking.activity.title }}</h1>
+						<div class=" row">
+							<div class="col">
+								<div class="alert alert-success">
+									<h2>Votre voyage:</h2>
+									<img class="image-fluid w-100 h-50" src="{{booking.activity.coverImage}}" alt="">
+									<p>
+										<small>{{booking.activity.category}}</small>
+									</p>
+									<p>{{booking.activity.description}}</p>
+									<button class="btn btn-primary">
+										<a class="text-white" href="{{ path('activity_show', {'slug': booking.activity.slug}) }}">En savoir plus</a>
+									</button>
+								</div>
+
+							</div>
+							<div class="col">
+								<div class="alert alert-info">
+									<h2>Details</h2>
+									<dl class="row">
+										<dt class="col-md-4">Numero</dt>
+										<dd class="col-md-8">{{ booking.id }}</dd>
+										<dt class="col-md-4">Date d'arrivee</dt>
+										<dd class="col-md-8">{{ booking.startDate | date('d/m/Y') }}</dd>
+										<dt class="col-md-4">Date de depart</dt>
+										<dd class="col-md-8">{{ booking.endDate | date('d/m/Y') }}</dd>
+										<dt class="col-md-4">Montant total</dt>
+										<dd class="col-md-8">{{ booking.amount }}</dd>
+										<dt class="col-md-4">Demande</dt>
+										<dd class="col-md-8">{{ booking.comment }}</dd>
+									</dl>
+								</div>
+								<div class="alert alert-light text-center">
+									<h3 class="alert-heading">Votre avis nous importe !</h3>
+									{% if date() > date(booking.endDate) %}
+										<a href="{{ path('booking_show', {'id': booking.id}) }}">
+											<button class="btn btn-success">Laisser un avis</button>
+										</a>
+									{% endif %}
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>{% endblock %}

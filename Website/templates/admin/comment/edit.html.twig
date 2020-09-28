@@ -1,0 +1,49 @@
+{% extends "admin/base.html.twig" %}
+
+{% block title %}Modification du commentaire No
+	{{ comment.id }}
+{% endblock %}
+
+{% form_theme form _self %}
+
+{% block body %}
+
+	<div class="container my-5">
+		<h1 class="my-5">Modification du commentaire No
+			{{ comment.id }}</h1>
+
+		{{ form_start(form) }}
+
+		<div class="row">
+			<div class="col">
+				<div class="card bg-light">
+					<div class="card-header">
+						<h4 class="card-title">Modifier le commentaire</h4>
+					</div>
+					<div class="card-body">{{ form_widget(form) }}
+
+						<p>commente par
+							{{ comment.author.fullName }}</p>
+						<p>sur l'activitee
+							<a href="{{path('activity_show', {'slug': comment.activity.slug}) }} ">{{ comment.activity.title }}</p>
+						</p>
+					</a>
+					<p>Le
+						{{ comment.createdAt|date('d/m/Y H:i') }}</p>
+
+					<p>pour
+						{{ comment.rating }}/5</p>
+
+					<button type="submit" class="btn btn-info">
+						<i class="fas fa-check"></i>
+						Enregistrer les modifications
+					</button>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+
+{{ form_end(form) }}</div>{% endblock %}

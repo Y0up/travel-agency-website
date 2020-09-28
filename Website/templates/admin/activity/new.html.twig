@@ -1,0 +1,220 @@
+{% extends "admin/base.html.twig" %}
+
+{% block title %}Creation d'une nouvelle activitee
+{% endblock %}
+
+{% form_theme form _self %}
+
+{% block body %}
+
+	<div class="container my-5">
+		<h1 class="my-5">Creation d'une activitee</h1>
+
+		{{ form_start(form) }}
+
+		<div class="row">
+			<div class="col">
+				<div class="card bg-light">
+					<div class="card-header">
+						<h4 class="card-title">Formulaire de creation</h4>
+					</div>
+
+					<div class="card-body">{{ form_widget(form) }}
+
+
+						<button type="submit" class="btn btn-info">
+							<i class="fas fa-check"></i>
+							Creer
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		{{ form_end(form) }}
+
+
+	</div>
+
+{% endblock %}
+
+{# Ajout de champs images #}
+
+{% block _activity_images_widget %}
+	{{ form_widget(form) }}
+
+	<input type="hidden" id="widgets-image-counter" value="0">
+
+	<div class="form-group">
+		<button type="button" id="add_image" class="btn btn-info">Ajouter une image</button>
+	</div>
+{% endblock %}
+
+{% block _activity_images_entry_row %}
+	{{ form_widget(form) }}
+{% endblock %}
+
+{% block _activity_images_entry_widget %}
+
+	<div class="form-group" id="block_{{id}}">
+		<div class="row align-items-center">
+			<div class="col-4">
+				{{ form_row(form.url) }}
+			</div>
+			<div class="col-2">
+				<button type="button" class="btn btn-danger rounded" data-action="delete" data-target="#block_{{id}}">
+					<i class="far fa-trash-alt"></i>
+				</button>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
+
+{# Ajout de champs inclus 
+
+{% block _activity_incls_widget %}
+	{{ form_widget(form) }}
+
+	<input type="hidden" id="widgets-incl-counter" value="0">
+
+	<div class="form-group">
+		<button type="button" id="add_incl" class="btn btn-info">Ajouter un champ inclu</button>
+	</div>
+{% endblock %}
+
+{% block _activity_incls_entry_row %}
+	{{ form_widget(form) }}
+{% endblock %}
+
+{% block _activity_incls_entry_widget %}
+	<div class="form-group" id="block_{{id}}">
+		<div class="row align-items-center">
+			<div class="col-4">
+				{{ form_row(form.title) }}
+			</div>
+			<div class="col-2">
+				<button type="button" class="btn btn-danger rounded" data-action="delete" data-target="#block_{{id}}">
+					<i class="far fa-trash-alt"></i>
+				</button>
+			</div>
+		</div>
+	</div>
+{% endblock %}   #}
+
+
+{# Ajout de champs Requis 
+
+{% block _activity_requs_widget %}
+	{{ form_widget(form) }}
+
+	<input type="hidden" id="widgets-requ-counter" value="0">
+
+	<div class="form-group">
+		<button type="button" id="add_requ" class="btn btn-info">Ajouter un champ inclu</button>
+	</div>
+{% endblock %}
+
+{% block _activity_requs_entry_row %}
+	{{ form_widget(form) }}
+{% endblock %}
+
+{% block _activity_requs_entry_widget %}
+	<div class="form-group" id="block_{{id}}">
+		<div class="row align-items-center">
+			<div class="col-4">
+				{{ form_row(form.title) }}
+			</div>
+			<div class="col-2">
+				<button type="button" class="btn btn-danger rounded" data-action="delete" data-target="#block_{{id}}">
+					<i class="far fa-trash-alt"></i>
+				</button>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+#}
+
+{# JAVASCRIPT #}
+
+
+	{% block javascripts %}<script src="/js/jquery.min.js"> </script>
+	<script src="/js/popper.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+
+	{# Javascript pour ajout et suppression image #}
+
+	<script>
+		$('#add_image').click(function () {
+const index = + $('#widgets-counter').val();
+
+const tmpl = $('#activity_images').data('prototype').replace(/_name_/g, index);
+
+$('#activity_images').append(tmpl);
+
+$('#widgets-image-counter').val(index + 1);
+
+handleDeleteButtons();
+});
+
+function handleDeleteButtons() {
+$('button[data-action="delete"]').click(function () {
+const target = this.dataset.target;
+$(target).remove();
+});
+}
+
+handleDeleteButtons();
+	</script>
+
+	{# Javascript pour ajout et suppression champ inclu #}
+
+	<script>
+		$('#add_incl').click(function () {
+const index = + $('#widgets-incl-counter').val();
+
+const tmpl = $('#activity_incls').data('prototype').replace(/_name_/g, index);
+
+$('#activity_incls').append(tmpl);
+
+$('#widgets-image-counter').val(index + 1);
+
+handleDeleteButtons();
+});
+
+function handleDeleteButtons() {
+$('button[data-action="delete"]').click(function () {
+const target = this.dataset.target;
+$(target).remove();
+});
+}
+
+handleDeleteButtons();
+	</script>
+
+	{# Javascript pour ajout et suppression champ requis #}
+
+	<script>
+		$('#add_requ').click(function () {
+const index = + $('#widgets-requ-counter').val();
+
+const tmpl = $('#activity_requs').data('prototype').replace(/_name_/g, index);
+
+$('#activity_requs').append(tmpl);
+
+$('#widgets-image-counter').val(index + 1);
+
+handleDeleteButtons();
+});
+
+function handleDeleteButtons() {
+$('button[data-action="delete"]').click(function () {
+const target = this.dataset.target;
+$(target).remove();
+});
+}
+
+handleDeleteButtons();
+	</script>
+{% endblock %}

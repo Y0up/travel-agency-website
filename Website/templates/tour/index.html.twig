@@ -1,0 +1,151 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tours
+{% endblock %}
+
+{% block body %}
+
+	{# Jumbotron #}
+
+	<div class="bg-light" style="background:url(http://lorempixel.com/output/nature-q-c-1920-1080-3.jpg)" id="jumbotron">
+		<div class="container">
+			<div class="jumbotron bg-transparent">
+				<h1 class="display-3">Create Your Travel !</h1>
+				<p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum voluptas recusandae incidunt aliquam numquam aspernatur reiciendis atque ullam consequuntur natus sit totam obcaecati a, quis deserunt assumenda et nobis necessitatibus.</p>
+			</div>
+		</div>
+	</div>
+
+	{# Annonce tour #}
+	{# Description #}
+	{% for tour in tours %}
+
+
+		<div class="container mt-5">
+			<div class="row text-center">
+				<div class="col text-center mb-3">
+					<h1>{{ tour.title }}</h1>
+				</div>
+			</div>
+			<div class="row justify-content-center mb-4">
+				<div class="col-2 align-self-end">
+					<p>
+						{{ tour.category }}
+					</p>
+				</div>
+				<div class="col-2 align-self-start">
+					<i class="fas fa-heart"></i>
+					<i class="fas fa-share-alt-square"></i>
+					<i class="fab fa-creative-commons-share"></i>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-6 container">
+					<div class="row">
+						<div class="col-3 offset-2"><img src="{{tour.coverImage}}" alt="" style="width: 255px; height: 235px;"></div>
+					</div>
+					<div class="row mt-n5">
+						<div class="col-3 offset-6"><img src="{{tour.coverImage}}" alt="" style="width: 255px; height: 235px;"></div>
+					</div>
+					<div class="row mt-n5">
+						<div class="col-3"><img src="{{tour.coverImage}}" alt="" style="width: 255px; height: 235px;"></div>
+					</div>
+				</div>
+				<div class="col-6 container">
+					<h4 class="text-center">{{tour.description}}</h4>
+					<div class="row mt-5">
+						<div class="col-6">
+							<button class="btn btn-primary">reserver</button>
+						</div>
+						<div class="col-6">
+							<p class="text-right">a partir de
+								{{tour.price}}
+								COP</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		{# Contenu #}
+
+		<div class="col text-center mb-5 mt-n5">
+			<button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#decouvrir{{ tour.id }}" aria-expanded="false" aria-controls="decouvrir">Decouvrir</button>
+		</div>
+		<div class="container">
+			<div class="row">
+
+				<div class="collapse mb-5" id="decouvrir{{ tour.id }}">
+					<div>
+						<ul class="nav nav-tabs justify-content-between">
+							<li class="nav-item w-25 text-center">
+								<a class="nav-link active" data-toggle="tab" href="#cinq">5 heures</a>
+							</li>
+							<li class="nav-item w-25 text-center">
+								<a class="nav-link" data-toggle="tab" href="#un">1 jour</a>
+							</li>
+							<li class="nav-item w-25 text-center">
+								<a class="nav-link" data-toggle="tab" href="#deux">2 jours</a>
+							</li>
+
+						</ul>
+						<div class="tab-content" id="myTabContent">
+							<div class="tab-pane fade show active" id="cinq">
+								<div class="container">
+									<div class="row mt-5">
+										<img class:"image-fluid" src="{{tour.coverImage}}" alt="">
+
+										<p>jour 1</p>
+										<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eveniet quisquam aliquam earum nam reiciendis quia dignissimos esse, sapiente veritatis! Iure, repudiandae a? Dolorem sit delectus, quam provident vel, quaerat, totam impedit sapiente distinctio ex aspernatur aut accusantium? A qui iusto fugit atque exercitationem reiciendis ex voluptates cumque consequuntur. Sapiente, sequi.</p>
+									</div>
+									<div class="row mt-5">
+										<div class="col-7">
+											<div>
+												<p>jour 2</p>
+												<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Temporibus reprehenderit cupiditate a architecto quia sapiente consequuntur vitae eveniet minus facere veniam esse, accusamus excepturi hic recusandae sequi deleniti modi aperiam aliquam maiores? Quis enim necessitatibus culpa odio vitae nam error aliquam incidunt totam at optio soluta, accusamus repellat dolore est!</p>
+											</div>
+										</div>
+										<div class="col-5">
+											<div><img src="{{tour.coverImage}}" alt=""></div>
+										</div>
+									</div>
+									<div class="row">
+										<hr class="col-4 my-5">
+									</div>
+									<div class="row mb-5">
+		<div class="col-4 offset-2 text-center">
+			<h5>inclus</h5>
+			<ul class="list-unstyled">
+				{% for inclue in tour.incls %}
+					<li>{{ inclue.title}}</li>
+				{% endfor %}
+			</ul>
+		</div>
+		<div class="col-4 text-center">
+			<h5>Requis</h5>
+			<ul class="list-unstyled">
+				{% for requis in tour.requs %}
+					<li>{{ requis.title}}</li>
+				{% endfor %}
+
+			</ul>
+		</div>
+	</div>
+									<div class="row justify-content-center">
+										<button class="btn btn-primary">reserver</button>
+									</div>
+								</div>
+							</div>
+							<div class="tab-pane fade" id="un">
+								<p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit.</p>
+							</div>
+							<div class="tab-pane fade" id="deux">
+								<p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	{% endfor %}
+</div>{% endblock %}

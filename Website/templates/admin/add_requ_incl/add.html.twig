@@ -1,0 +1,161 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Hello AddRequInclController!
+{% endblock %}
+
+{% form_theme form _self %}
+
+{% block body %}
+	<div class="container" id="jumbotron">
+		<h1>YO LES POTOS</h1>
+	</div>
+
+	<div class="container my-5">
+
+		<div class="row">
+			<div class="col-6">{{ form_start(form) }}
+
+
+				<div class="card-body">{{ form_widget(form) }}
+
+
+					<button type="submit" class="btn btn-info">
+						<i class="fas fa-check"></i>
+						Ajouter
+					</button>
+					{{ form_end(form) }}</div>
+			</div>
+			<div class="col-6">{{ form_start(form2) }}
+
+
+				<div class="card-body">{{ form_widget(form2) }}
+					<input type="hidden" id="widgets-incl-counter" value="0">
+					<div class="form-group">
+						<button type="button" id="add_incl" class="btn btn-info">Ajouter un champ inclus</button>
+					</div>
+					<button type="submit" class="btn btn-info">
+						<i class="fas fa-check"></i>
+						Ajouter
+					</button>
+
+					{{ form_end(form2) }}
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+{% endblock %}
+
+{# Ajout de champs Requis #}
+
+{% block _requ_widget %}
+	{{ form_widget(form) }}
+
+	<input type="hidden" id="widgets-requ-counter" value="0">
+
+	<div class="form-group">
+		<button type="button" id="add_requ" class="btn btn-info">Ajouter un champ requis</button>
+	</div>
+{% endblock %}
+{% block _requ_entry_row %}
+	{{ form_widget(form) }}
+{% endblock %}
+{% block _requ_entry_widget %}
+	<div class="form-group" id="block_requ_{{id}}">
+		<div class="row align-items-center">
+			<div class="col-4">
+				{{ form_row(form.title) }}
+			</div>
+			<div class="col-2">
+				<button type="button" class="btn btn-danger rounded" data-action="delete" data-target="#block_requ_{{id}}">
+					<i class="far fa-trash-alt"></i>
+				</button>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{# Ajout de champs inclus  #}
+
+{% block _imcl_widget %}
+	{{ form_widget(form2) }}
+
+
+{% endblock %}
+{% block _imcl_entry_row %}
+	{{ form_widget(form2) }}
+{% endblock %}
+{% block _imcl_entry_widget %}
+	<div class="form-group" id="block_{{id}}">
+		<div class="row align-items-center">
+			<div class="col-4">
+				{{ form_row(form2.title) }}
+			</div>
+			<div class="col-2">
+				<button type="button" class="btn btn-danger rounded" data-action="delete" data-target="#block_{{id}}">
+					<i class="far fa-trash-alt"></i>
+				</button>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{# JAVASCRIPT #}
+
+
+{% block javascripts %}
+	<script src="/js/jquery.min.js"></script>
+	<script src="/js/popper.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+
+	{# Javascript pour ajout et suppression champ inclu #}
+
+	<script>
+		$('#add_incl').click(function () {
+const index = + $('#widgets-incl-counter').val();
+
+const tmpl = $('#activity_incls').data('prototype').replace(/_name_/g, index);
+
+$('#activity_incls').append(tmpl);
+
+$('#widgets-image-counter').val(index + 1);
+
+handleDeleteButtons();
+});
+
+function handleDeleteButtons() {
+$('button[data-action="delete"]').click(function () {
+const target = this.dataset.target;
+$(target).remove();
+});
+}
+
+handleDeleteButtons();
+	</script>
+
+	{# Javascript pour ajout et suppression champ requis #}
+
+	<script>
+		$('#add_requ').click(function () {
+const index = + $('#widgets-requ-counter').val();
+
+const tmpl = $('#requs').data('prototype').replace(/_name_/g, index);
+
+$('#requs').append(tmpl);
+
+$('#widgets-image-counter').val(index + 1);
+
+handleDeleteButtons();
+});
+
+function handleDeleteButtons() {
+$('button[data-action="delete"]').click(function () {
+const target = this.dataset.target;
+$(target).remove();
+});
+}
+
+handleDeleteButtons();
+	</script>
+{% endblock %}

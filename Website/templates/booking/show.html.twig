@@ -1,0 +1,64 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Reservation
+{% endblock %}
+
+{% block body %}
+	<div class="container" style="margin-top:100px">
+		<h1 class="py-5">Votre reservation de
+			{{ booking.activity.title }}</h1>
+		<div class=" row">
+			<div class="col">
+				<div class="alert alert-success">
+					<h2>Votre voyage:</h2>
+					<img class="image-fluid w-100 h-50" src="{{booking.activity.coverImage}}" alt="">
+					<p>
+						<small>{{booking.activity.category}}</small>
+					</p>
+					<p>{{booking.activity.description}}</p>
+					<button class="btn btn-primary">
+						<a class="text-white" href="{{ path('activity_show', {'slug': booking.activity.slug}) }}">En savoir plus</a>
+					</button>
+				</div>
+
+			</div>
+			<div class="col">
+				<div class="alert alert-info">
+					<h2>Details</h2>
+					<dl class="row">
+						<dt class="col-md-4">Numero</dt>
+						<dd class="col-md-8">{{ booking.id }}</dd>
+						<dt class="col-md-4">Date d'arrivee</dt>
+						<dd class="col-md-8">{{ booking.startDate | date('d/m/Y') }}</dd>
+						<dt class="col-md-4">Date de depart</dt>
+						<dd class="col-md-8">{{ booking.endDate | date('d/m/Y') }}</dd>
+						<dt class="col-md-4">Montant total</dt>
+						<dd class="col-md-8">{{ booking.amount }}</dd>
+						<dt class="col-md-4">Demande</dt>
+						<dd class="col-md-8">{{ booking.comment | default('Aucune demande particuliere ajoute') }}</dd>
+					</dl>
+				</div>
+				<div class="alert alert-light">
+					<h2 class="alert-heading">Votre avis nous importe !</h2>
+					{% if date() > date(booking.endDate) %}
+						{% set comment = booking.activity.commentFromAuthor(app.user) %}
+						{% if comment is not null%}
+							<blockquote>{{ comment.content }}</blockquote>
+							{% include "common/rating.html.twig" with {'rating': comment.rating} %}
+						{% else %}
+							{{ form_start(form) }}
+							{{ form_widget(form) }}
+							<button class="btn btn-success">Confirmer</button>
+							{{ form_end(form) }}
+
+						{% endif %}
+
+
+					{% else %}
+						<small>Revenez nous voir apres votre voyage !</small>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>{% endblock %}

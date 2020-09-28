@@ -1,0 +1,65 @@
+{% for activity in activities %}
+	{% set url = path('activity_show', {'slug': activity.slug}) %}
+
+	<div class="container">
+		<div class="row my-5">
+			<div class="col-4 offset-1">
+				<a href="{{url}}">
+					<div>
+						<img class="w-100 image-fluid" src="{{activity.coverImage}}" alt="">
+					</div>
+				</a>
+
+			</div>
+			<div class="col-6 offset-n1">
+				<div class="row justify-content-between">
+					<div class="col-6">
+						<a href="{{url}}">
+							<h3>{{activity.title}}</h3>
+						</a>
+						<p>
+							<small>{{activity.category}}</small>
+						</p>
+					</div>
+					{% if activity.comments|length >0 %}
+						{% include "common/rating.html.twig" with {'rating': activity.avgRatings} %}
+					{% else %}
+						<small>Pas encore note</small>
+					{% endif %}
+
+				</div>
+				<div class="row"></div>
+				<div class="row align-items-center">
+					<div class="col">
+						<a href="{{url}}">
+							<p>{{activity.description}}</p>
+						</a>
+
+					</div>
+				</div>
+				<div class="row align-items-end justify-content-between">
+					<div class="col-3">
+						<i class="fas fa-heart"></i>
+						<i class="fas fa-share-alt-square"></i>
+						<i class="fab fa-creative-commons-share"></i>
+						{% if is_granted('ROLE_ADMIN') %}
+							<a href="{{ path('activity_delete', {'slug': activity.slug}) }}">
+								<button class="btn-small btn-danger">x</button>
+							</a>
+						{% endif %}
+					</div>
+					{% if is_granted('ROLE_ADMIN') %}
+						<div class="col-5">
+							<a href="{{ path('activity_edit', {'slug': activity.slug}) }}" class="btn btn-success">Modifier l'activitee</a>
+						</div>
+					{% endif %}
+					<h5>{{activity.price}}
+						COP</h5>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+{% endfor %}

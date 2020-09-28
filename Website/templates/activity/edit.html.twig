@@ -1,0 +1,29 @@
+{% extends "base.html.twig" %}
+{% block title %}Modification d'une activitee
+{% endblock %}
+
+{% form_theme form 'activity/_collection.html.twig' %}
+
+{% block body %}
+	<div class="mt-5 container">
+		<h1 class="mt-5">Creer une activitee</h1>
+		<h1 class="mt-5">Modifier l'activitee :
+			{{ activity.title }}</h1>
+
+		{{ form_start(form) }}
+
+		{{ form_widget(form) }}
+
+		<button type="submit" class="btn btn-primary my-5">Enregistrer</button>
+
+		{{ form_end(form) }}
+	</div>
+{% endblock %}
+
+{% block javascripts %}
+	<script src="/js/activity.js"></script>
+{% endblock %}
+
+
+{% block warranty %}{% endblock %}
+{% block footer %}{% endblock %}

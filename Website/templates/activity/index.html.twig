@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Activities
+{% endblock %}
+
+{% block body %}
+	{# Jumbotron #}
+
+	<div class="bg-light mt-5" style="background:url(http://lorempixel.com/output/nature-q-c-1920-1080-3.jpg)">
+		<div class="container">
+			<div class="jumbotron bg-transparent">
+				<h1 class="display-3">Activitees Colombie bonjour
+				</h1>
+				<p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lobortis sit amet lectus at tristique. Suspendisse mollis est vel turpis tempus maximus. Nulla non auctor nibh, id pulvinar massa. Nunc porttitor justo risus, a consectetur augue aliquam ac. Maecenas porta lacus porta dolor accumsan ornare.</p>
+				{% if is_granted('ROLE_ADMIN') %}
+					<a href="{{ path('activity_create') }}" class="btn btn-success">Creer une activitee</a>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+
+	{# sub-header menu #}
+
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<div class="collapse navbar-collapse " id="navbarNav">
+			<ul class="navbar-nav mx-auto">
+				<li class="nav-item active mx-5">
+					<a class="nav-link" href="#">Colombie
+						<span class="sr-only">(current)</span>
+					</a>
+				</li>
+				<li class="nav-item mx-5">
+					<a class="nav-link" href="#">Caraibe</a>
+				</li>
+				<li class="nav-item mx-5">
+					<a class="nav-link" href="#">Andine</a>
+				</li>
+				<li class="nav-item mx-5">
+					<a class="nav-link" href="#">Pacifique</a>
+				</li>
+				<li class="nav-item mx-5">
+					<a class="nav-link" href="#">Amazonie</a>
+				</li>
+				<li class="nav-item mx-5">
+					<a class="nav-link" href="#">Orneoque</a>
+				</li>
+
+			</ul>
+		</div>
+	</nav>
+
+	{# presentation menu #}
+
+	<div class="container">
+		<div class="row">
+			<div class="col-8">
+				<div class="my-5">
+					<h2 class="mb-3 text-center">Colombie</h2>
+					<p class="text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lobortis sit amet lectus at tristique. Suspendisse mollis est vel turpis tempus maximus. Nulla non auctor nibh, id pulvinar massa. Nunc porttitor justo risus, a consectetur augue aliquam ac.<br><br>
+
+						Maecenas porta lacus porta dolor accumsan ornare. Etiam turpis lorem, aliquam id ante a, pretium pellentesque tellus. Nam et nibh ac metus semper ornare.<br><br>
+
+						Integer at libero viverra, dignissim turpis et, faucibus diam. Morbi scelerisque sit amet libero sed dignissim. Cras fermentum euismod purus, a sagittis lacus congue eget.<br><br>
+
+						Quisque ullamcorper nisl dolor. Nullam lobortis enim risus, ac venenatis massa porttitor in. Nunc pharetra metus velit, et dictum enim mattis at. Mauris nec ultricies lorem.</p>
+				</div>
+			</div>
+			<div class="col-4">
+				<div class="my-5 "><img class="img-fluid w-100" src="http://lorempixel.com/240/240" alt=""></div>
+			</div>
+		</div>
+	</div>
+
+	{# cartes activitees #}
+
+	{% include "/activity/_activityCard.html.twig" %}
+
+{% endblock %}
